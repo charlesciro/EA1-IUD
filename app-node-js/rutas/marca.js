@@ -2,7 +2,7 @@ const {Router} = require ('express');
 const router = Router();
 const Marca = require('../modelos/Marca');
 
-// GET http://localhost:3000/marca/listar
+// GET http://localhost:4000/marca/listar
 router.get('/listar', async function(req, res) {
     try {
         const marcas = await Marca.find();
@@ -13,7 +13,7 @@ router.get('/listar', async function(req, res) {
     }
 });
 
-// POST http://localhost:3000/marca/guardar
+// POST http://localhost:4000/marca/guardar
 router.post('/guardar', async function(req, res){
 
     try{
@@ -28,6 +28,7 @@ router.post('/guardar', async function(req, res){
 
         let marca = new Marca();
         marca.nombre = req.body.nombre;
+        marca.foto = req.body.foto;
         marca.estado = req.body.estado;
         marca.fechaCreacion = new Date();
         marca.fechaActualizacion = new Date();
@@ -44,7 +45,7 @@ router.post('/guardar', async function(req, res){
     
 });
 
-// PUT http://localhost:3000/marca/editar/id
+// PUT http://localhost:4000/marca/editar/id
 router.put('/editar/:marcaId', async function(req, res){
 
     try{
@@ -64,6 +65,7 @@ router.put('/editar/:marcaId', async function(req, res){
         }
 
         marca.nombre = req.body.nombre;
+        marca.foto = req.body.foto;
         marca.estado = req.body.estado;
         marca.fechaCreacion = req.body.fechaCreacion;
         marca.fechaActualizacion = new Date();
@@ -75,5 +77,19 @@ router.put('/editar/:marcaId', async function(req, res){
         res.status(500).send('Ocurrio un error en servidor');
         }
 });
+
+// GET http://localhost:4000/marca/id
+router.get('/:marcaId', async function (req, res) {
+    try {
+      const marca = await Marca.findById(req.params.marcaId);
+      if (!marca) {
+        return res.status(404).send("Marca no existe");
+      }
+      res.send(marca);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Ocurrio un error al consultar marca por Id");
+    }
+  });
 
 module.exports = router;

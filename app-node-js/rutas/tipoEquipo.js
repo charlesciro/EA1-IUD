@@ -2,7 +2,7 @@ const {Router} = require ('express');
 const router = Router();
 const TipoEquipo = require('../modelos/TipoEquipo');
 
-// GET http://localhost:3000/tipoEquipo/listar
+// GET http://localhost:4000/tipoEquipo/listar
 router.get('/listar', async function(req, res) {
     try {
         const tipoEquipo = await TipoEquipo.find();
@@ -13,7 +13,7 @@ router.get('/listar', async function(req, res) {
     }
 });
 
-// POST http://localhost:3000/tipoEquipo/guardar
+// POST http://localhost:4000/tipoEquipo/guardar
 router.post('/guardar', async function(req, res){
 
     try{
@@ -33,6 +33,7 @@ router.post('/guardar', async function(req, res){
 
         let tipoEquipo = new TipoEquipo();
         tipoEquipo.nombre = req.body.nombre;
+        tipoEquipo.foto = req.body.foto;
         tipoEquipo.estado = req.body.estado;
         tipoEquipo.fechaCreacion = new Date();
         tipoEquipo.fechaActualizacion = new Date();
@@ -49,7 +50,7 @@ router.post('/guardar', async function(req, res){
     
 });
 
-// PUT http://localhost:3000/tipoEquipo/editar/id
+// PUT http://localhost:4000/tipoEquipo/editar/id
 router.put('/editar/:tipoEquipoId', async function(req, res){
 
     try{
@@ -70,6 +71,7 @@ router.put('/editar/:tipoEquipoId', async function(req, res){
 
         tipoEquipo.nombre = req.body.nombre;
         tipoEquipo.estado = req.body.estado;
+        tipoEquipo.foto = req.body.foto;
         tipoEquipo.fechaCreacion = req.body.fechaCreacion;
         tipoEquipo.fechaActualizacion = new Date();
         // guardamos
@@ -80,5 +82,19 @@ router.put('/editar/:tipoEquipoId', async function(req, res){
         res.status(500).send('Ocurrio un error en servidor');
         }
 });
+
+// GET http://localhost:4000/tipoEquipo/id
+router.get('/:tipoEquipoId', async function (req, res) {
+    try {
+      const tipoEquipo = await TipoEquipo.findById(req.params.tipoEquipoId);
+      if (!tipoEquipo) {
+        return res.status(404).send("Tipo no existe");
+      }
+      res.send(tipoEquipo);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Ocurrio un error al consultar tipo por Id");
+    }
+  });
 
 module.exports = router;

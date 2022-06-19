@@ -1,7 +1,9 @@
 const express = require('express');
 const { getConnection } = require('./db/db-connection-mongo');
+const cors = require('cors')
 
 const app = express();
+app.use(cors())
 
 getConnection();
 
@@ -14,15 +16,15 @@ const estadoEquipo = require('./rutas/estadoEquipo');
 // lectura o parsep de json
 app.use(express.json());
 
-app.use('/usuario', usuario); // http://localhost:3000/usuario GET, POST, PUT
-app.use('/marca', marca); // http://localhost:3000/usuario GET, POST, PUT
-app.use('/tipoEquipo', tipoEquipo); // http://localhost:3000/tipoEquipo GET, POST, PUT
-app.use('/inventario', inventario); // http://localhost:3000/inventario GET, POST, PUT
-app.use('/estadoEquipo', estadoEquipo); // http://localhost:3000/estadoEquipo GET, POST, PUT
+app.use('/usuario', usuario); // http://localhost:4000/usuario GET, POST, PUT
+app.use('/marca', marca); // http://localhost:4000/usuario GET, POST, PUT
+app.use('/tipoEquipo', tipoEquipo); // http://localhost:4000/tipoEquipo GET, POST, PUT
+app.use('/inventario', inventario); // http://localhost:4000/inventario GET, POST, PUT
+app.use('/estadoEquipo', estadoEquipo); // http://localhost:4000/estadoEquipo GET, POST, PUT
 
 
-app.listen(3000, function() {
-    console.log('Aplicacion corriendo en el puerto 3000');
+app.listen(4000, function() {
+    console.log('Aplicacion corriendo en el puerto 4000');
 });
 
 

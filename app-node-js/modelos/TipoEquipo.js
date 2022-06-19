@@ -6,6 +6,10 @@ const TipoEquipoSchema = Schema({
         required: true,
         enum: [ 'Computo', 'Movil' ]
     },
+    foto: {
+        type: String,
+        required: true,
+    },
 	estado: {
         type: String,
         required: true,

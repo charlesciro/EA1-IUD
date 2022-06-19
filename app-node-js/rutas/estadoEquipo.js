@@ -2,7 +2,7 @@ const {Router} = require ('express');
 const router = Router();
 const EstadoEquipo = require('../modelos/EstadoEquipo');
 
-// GET http://localhost:3000/equipoEquipo/listar
+// GET http://localhost:4000/equipoEquipo/listar
 router.get('/listar', async function(req, res) {
     try {
         const estadoEquipo = await EstadoEquipo.find();
@@ -14,7 +14,7 @@ router.get('/listar', async function(req, res) {
 });
 
 
-// POST http://localhost:3000/estadoEquipo/guardar
+// POST http://localhost:4000/estadoEquipo/guardar
 router.post('/guardar', async function(req, res){
 
     try{
@@ -23,6 +23,7 @@ router.post('/guardar', async function(req, res){
         let equipoEstado = new EstadoEquipo();
         equipoEstado.nombre = req.body.nombre;
         equipoEstado.estado = req.body.estado;
+        equipoEstado.foto = req.body.foto;
         equipoEstado.fechaCreacion = new Date();
         equipoEstado.fechaActualizacion = new Date();
 
@@ -36,7 +37,7 @@ router.post('/guardar', async function(req, res){
 });
 
 
-// PUT http://localhost:3000/estadoEquipo/editar/id
+// PUT http://localhost:4000/estadoEquipo/editar/id
 router.put('/editar/:estadoEquipoId', async function(req, res){
 
     try{
@@ -57,6 +58,7 @@ router.put('/editar/:estadoEquipoId', async function(req, res){
 
         estadoEquipo.nombre = req.body.nombre;
         estadoEquipo.estado = req.body.estado;
+        equipoEstado.foto = req.body.foto;
         estadoEquipo.fechaCreacion = req.body.fechaCreacion;
         estadoEquipo.fechaActualizacion = new Date();
         // guardamos
@@ -67,6 +69,20 @@ router.put('/editar/:estadoEquipoId', async function(req, res){
         res.status(500).send('Ocurrio un error en servidor');
         }
 });
+
+// GET http://localhost:4000/estadoEquipo/id
+router.get('/:estadoEquipoId', async function (req, res) {
+    try {
+      const estadoEquipo = await EstadoEquipo.findById(req.params.estadoEquipoId);
+      if (!estadoEquipo) {
+        return res.status(404).send("Estado no existe");
+      }
+      res.send(estadoEquipo);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Ocurrio un error al consultar estado equipo por Id");
+    }
+  });
 
 
 module.exports = router;

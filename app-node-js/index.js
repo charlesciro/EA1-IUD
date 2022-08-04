@@ -8,11 +8,11 @@ app.use(cors())
 
 getConnection();
 
-const inventario = require('./rutas/inventario');
+const prestamo = require('./rutas/prestamo');
 const usuario = require('./rutas/usuario');
-const marca = require('./rutas/marca');
-const tipoEquipo = require('./rutas/tipoEquipo');
-const estadoEquipo = require('./rutas/estadoEquipo');
+const ejemplar = require('./rutas/ejemplar');
+const categoria = require('./rutas/categoria');
+const libro = require('./rutas/libro');
 
 const PORT = process.env.PORT || 4000;
 
@@ -20,10 +20,10 @@ const PORT = process.env.PORT || 4000;
 app.use(express.json());
 
 app.use('/usuario', usuario); // http://localhost:4000/usuario GET, POST, PUT
-app.use('/marca', marca); // http://localhost:4000/usuario GET, POST, PUT
-app.use('/tipoEquipo', tipoEquipo); // http://localhost:4000/tipoEquipo GET, POST, PUT
-app.use('/inventario', inventario); // http://localhost:4000/inventario GET, POST, PUT
-app.use('/estadoEquipo', estadoEquipo); // http://localhost:4000/estadoEquipo GET, POST, PUT
+app.use('/prestamo', prestamo); // http://localhost:4000/prestamo GET, POST, PUT
+app.use('/categoria', categoria); // http://localhost:4000/categoria GET, POST, PUT
+app.use('/ejemplar', ejemplar); // http://localhost:4000/ejemplar GET, POST, PUT
+app.use('/libro', libro); // http://localhost:4000/libro GET, POST, PUT
 
 
 app.listen(PORT, function() {

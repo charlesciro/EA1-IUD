@@ -10,21 +10,26 @@ const UsuarioSchema = Schema({
         required: true,
         unique: true,
     },
-    foto: {
-        type: String,
-        required: true,
-    },
 	estado: {
         type: String,
         required: true,
         enum: [ 'Activo', 'Inactivo' ]
     },
-	fechaCreacion: {
-        type: Date,
+    n_prestamos: {
+        type: Number,
         required: true,
     },
-	fechaActualizacion: {
-        type: Date,
+	tipo: {
+        type: String,
+        required: true,
+        enum: [ 'Profesor', 'Alumno' ]
+    },
+	direccion: {
+        type: String,
+        required: true
+    },
+    telefono: {
+        type: Number,
         required: true
     }
 });

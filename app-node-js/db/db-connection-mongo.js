@@ -5,9 +5,9 @@ const getConnection = async () => {
     try {
         console.log('Inicializando llamado a bd');
         await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
-        console.log('Estoy conectado');
+        console.log('Base de datos inicializada y conectada');
     } catch(error) {
-        console.log('Fallo la conexión a la base de datos');
+        console.log('Falló la conexión a la base de datos');
     }
 }
 

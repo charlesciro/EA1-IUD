@@ -11,7 +11,7 @@ router.get('/listar', async function(req, res) {
         res.send(usuarios);
     } catch (error) {
        console.log(error);
-       res.status(500).send('Ocurrio un error en servidor');
+       res.status(500).send('Ocurrio un error en el servidor');
     }
 });
 
@@ -31,11 +31,12 @@ router.post('/guardar', async function(req, res){
 
         let usuario = new Usuario();
         usuario.nombre = req.body.nombre;
-        usuario.foto = req.body.foto;
         usuario.email = req.body.email;
         usuario.estado = req.body.estado;
-        usuario.fechaCreacion = new Date();
-        usuario.fechaActualizacion = new Date();
+        usuario.n_prestamos = req.body.n_prestamos;
+        usuario.tipo = req.body.tipo;
+        usuario.direccion = req.body.direccion;
+        usuario.telefono = req.body.telefono
 
         usuario = await usuario.save();
 
